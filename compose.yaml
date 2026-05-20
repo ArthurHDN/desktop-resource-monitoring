@@ -1,0 +1,22 @@
+services:
+    victoriametrics:
+      image: victoriametrics/victoria-metrics:latest
+      container_name: victoriametrics
+      command:
+        - "--storageDataPath=/victoria-metrics-data"
+        - "--selfScrapeInterval=5s"
+        - "-promscrape.config=/etc/prometheus/prometheus.yml"
+      ports:
+        - "8428:8428"
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+      volumes:
+        - ./victoria-metrics-data:/victoria-metrics-data
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    grafana:
+      image: grafana/grafana:latest
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./grafana-data:/var/lib/grafana
