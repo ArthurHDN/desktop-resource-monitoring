@@ -1,0 +1,4 @@
+.env
+grafana-data/
+victoria-metrics-data/
+*.log

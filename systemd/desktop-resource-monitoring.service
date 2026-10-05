@@ -1,24 +1,16 @@
 [Unit]
-Description=VictoriaMetrics Docker Compose Stack
+Description=Desktop Resource Monitoring Stack
 Requires=docker.service
 After=docker.service network-online.target
 Wants=network-online.target collectd.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/artu/victoriametrics
+WorkingDirectory=/opt/desktop-resource-monitoring
 RemainAfterExit=true
-
-# Start
 ExecStart=/usr/bin/docker compose up -d
-
-# Stop
 ExecStop=/usr/bin/docker compose down
-
-# Optional: reload = recreate containers
 ExecReload=/usr/bin/docker compose up -d --force-recreate
-
-# Timeout handling
 TimeoutStartSec=0
 
 [Install]
